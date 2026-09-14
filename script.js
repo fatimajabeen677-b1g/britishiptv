@@ -1,7 +1,5 @@
 /* ============================================================
    BRITISH IPTV — MASTER JAVASCRIPT
-   Used by: index.html, devices.html, setup.html, faq.html,
-            contact.html, privacy.html, terms.html
    ============================================================ */
 
 // ===== SLIDE NAVIGATION =====
