@@ -10,6 +10,176 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ===== NEW DEVICES GRID STYLE ===== */
+    .devices-grid-new {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .device-new-card {
+      background-color: #15233E;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 1.75rem 1rem;
+      text-align: center;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .device-new-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(79,131,255,0.3);
+      box-shadow: 0 12px 32px -12px rgba(79,131,255,0.4);
+    }
+
+    .device-new-icon {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(79,131,255,0.08);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .device-new-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .device-new-card .device-sub {
+      font-size: 0.82rem;
+      color: #8A9AB8;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .device-new-badge {
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-top: 0.5rem;
+    }
+
+    .badge-blue { background-color: #1E3A8A; color: #93C5FD; }
+    .badge-orange { background-color: #7C2D12; color: #FDBA74; }
+    .badge-green { background-color: #065F46; color: #6EE7B7; }
+    .badge-purple { background-color: #4C1D95; color: #C4B5FD; }
+
+    /* ===== NEW PAYMENT STYLE ===== */
+    .payment-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 750px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .payment-stack-card {
+      background-color: #15233E;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      transition: all 0.25s ease;
+    }
+
+    .payment-stack-card:hover {
+      border-color: rgba(79,131,255,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -10px rgba(79,131,255,0.35);
+    }
+
+    .payment-stack-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .payment-stack-logos {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .payment-logo-box {
+      height: 38px;
+      padding: 0 0.9rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+    }
+
+    .paylogo-interac { background-color: #FDB913; color: #111111; }
+    .paylogo-visa { background-color: #1A1F71; }
+    .paylogo-mc { background-color: #1A1F71; gap: 0.35rem; }
+    .paylogo-mc-dot { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
+    .paylogo-mc-dot.red { background-color: #EB001B; }
+    .paylogo-mc-dot.orange { background-color: #F79E1B; margin-left: -8px; }
+    .paylogo-revolut { background-color: #000000; }
+
+    .payment-stack-badge {
+      padding: 0.32rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .pay-badge-instant { background-color: #065F46; color: #6EE7B7; }
+    .pay-badge-fast { background-color: #1E3A8A; color: #93C5FD; }
+    .pay-badge-days { background-color: #78350F; color: #FCD34D; }
+
+    .payment-stack-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0 0 0.35rem 0;
+    }
+
+    .payment-stack-card p {
+      font-size: 0.85rem;
+      color: #8A9AB8;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .devices-grid-new { gap: 0.75rem; }
+      .device-new-card { padding: 1.25rem 0.75rem; }
+      .device-new-icon { width: 50px; height: 50px; font-size: 1.5rem; }
+      .device-new-card h3 { font-size: 0.9rem; }
+      .device-new-card .device-sub { font-size: 0.75rem; }
+      .payment-stack-card { padding: 1rem 1.1rem; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -127,27 +297,70 @@
       </div>
     </section>
 
+    <!-- ===== NEW DEVICES SECTION (matching your screenshot style) ===== -->
     <section class="devices">
       <div class="container">
-        <div class="devices-header"><h2>Works on <span class="accent-red">All Your Devices</span></h2><p>British IPTV is fully compatible with every major device.</p></div>
-        <div class="device-badges">
-          <div class="device-badge"><span class="device-icon">🔥</span> Amazon Fire TV Stick <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📺</span> Samsung Smart TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📺</span> LG Smart TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">🤖</span> Android TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📱</span> Google TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📡</span> Formuler Z11 Pro <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📺</span> Sony Smart TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📺</span> Hisense Smart TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📺</span> TCL Smart TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">🍎</span> Apple TV <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📱</span> iPhone <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📱</span> iPad <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📱</span> Android Phone <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📱</span> Android Tablet <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">💻</span> Windows PC <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">💻</span> MacBook <span class="device-check">✓</span></div>
-          <div class="device-badge"><span class="device-icon">📺</span> Roku <span class="device-check">✓</span></div>
+        <div class="devices-header">
+          <h2>Supported <span class="accent-red">Devices</span> — Watch British IPTV Anywhere</h2>
+          <p>British IPTV works on every major device. Pick yours and start streaming in minutes.</p>
+        </div>
+
+        <div class="devices-grid-new">
+          <div class="device-new-card">
+            <div class="device-new-icon">📺</div>
+            <h3>Smart TV</h3>
+            <p class="device-sub">Samsung, LG, Sony &amp; more</p>
+            <span class="device-new-badge badge-blue">Most Popular</span>
+          </div>
+
+          <div class="device-new-card">
+            <div class="device-new-icon">🔥</div>
+            <h3>Amazon Fire TV Stick</h3>
+            <p class="device-sub">4K &amp; 4K Max streaming</p>
+            <span class="device-new-badge badge-orange">4K Ultra HD</span>
+          </div>
+
+          <div class="device-new-card">
+            <div class="device-new-icon">🎮</div>
+            <h3>NVIDIA Shield TV Pro</h3>
+            <p class="device-sub">Android TV powerhouse</p>
+            <span class="device-new-badge badge-green">AI Enhanced</span>
+          </div>
+
+          <div class="device-new-card">
+            <div class="device-new-icon">📡</div>
+            <h3>Google TV Streamer</h3>
+            <p class="device-sub">Chromecast &amp; Google TV</p>
+            <span class="device-new-badge badge-blue">Google Certified</span>
+          </div>
+
+          <div class="device-new-card">
+            <div class="device-new-icon">📺</div>
+            <h3>Formuler Z Series</h3>
+            <p class="device-sub">Z8, Z8 Pro, Z Alpha</p>
+            <span class="device-new-badge badge-purple">IPTV Optimized</span>
+          </div>
+
+          <div class="device-new-card">
+            <div class="device-new-icon">📡</div>
+            <h3>All MAG Boxes</h3>
+            <p class="device-sub">MAG 250, 322, 420 &amp; more</p>
+            <span class="device-new-badge badge-green">STB Ready</span>
+          </div>
+
+          <div class="device-new-card">
+            <div class="device-new-icon">🍎</div>
+            <h3>Apple TV &amp; iOS</h3>
+            <p class="device-sub">iPhone, iPad, Apple TV 4K</p>
+            <span class="device-new-badge badge-blue">AirPlay</span>
+          </div>
+
+          <div class="device-new-card">
+            <div class="device-new-icon">🤖</div>
+            <h3>Android Devices</h3>
+            <p class="device-sub">Phones, tablets &amp; TV boxes</p>
+            <span class="device-new-badge badge-green">Wide Support</span>
+          </div>
         </div>
       </div>
     </section>
@@ -197,17 +410,91 @@
       </div>
     </section>
 
+    <!-- ===== NEW PAYMENT METHODS SECTION (matching your screenshot style) ===== -->
     <section class="payment-section">
       <div class="container">
-        <div class="payment-header"><h2>Secure <span class="accent-red">Payment Methods</span></h2><p>All transactions are encrypted and 100% secure.</p></div>
-        <div class="payment-grid">
-          <div class="payment-card"><div class="payment-icon remitly">R</div><span>Remitly</span></div>
-          <div class="payment-card"><div class="payment-icon crypto">₿</div><span>Cryptocurrency</span></div>
-          <div class="payment-card"><div class="payment-icon revolut">Re</div><span>Revolut</span></div>
-          <div class="payment-card"><div class="payment-icon bank">🏦</div><span>Local Bank Transfer</span></div>
-          <div class="payment-card"><div class="payment-icon wise">W</div><span>Wise</span></div>
+        <div class="payment-header">
+          <h2>⚡ Instant &amp; Digital <span class="accent-red">Payments</span></h2>
+          <p>Pay instantly with the method that suits you — start streaming within minutes.</p>
         </div>
-        <div class="payment-secure-note"><span class="lock-icon">🔒</span><span>All payments are encrypted and processed securely</span></div>
+
+        <div class="payment-stack">
+          <!-- Interac -->
+          <div class="payment-stack-card">
+            <div class="payment-stack-top">
+              <div class="payment-stack-logos">
+                <div class="payment-logo-box paylogo-interac">◆ interac</div>
+              </div>
+              <span class="payment-stack-badge pay-badge-instant">Instant</span>
+            </div>
+            <h4>Interac e-Transfer</h4>
+            <p>UK's most popular instant bank transfer method — fast and secure.</p>
+          </div>
+
+          <!-- Credit / Debit Card -->
+          <div class="payment-stack-card">
+            <div class="payment-stack-top">
+              <div class="payment-stack-logos">
+                <div class="payment-logo-box paylogo-visa">VISA</div>
+                <div class="payment-logo-box paylogo-mc">
+                  <span class="paylogo-mc-dot red"></span>
+                  <span class="paylogo-mc-dot orange"></span>
+                </div>
+              </div>
+              <span class="payment-stack-badge pay-badge-instant">Instant</span>
+            </div>
+            <h4>Credit &amp; Debit Card</h4>
+            <p>Visa &amp; Mastercard — all major cards accepted worldwide.</p>
+          </div>
+
+          <!-- Revolut -->
+          <div class="payment-stack-card">
+            <div class="payment-stack-top">
+              <div class="payment-stack-logos">
+                <div class="payment-logo-box paylogo-revolut">R Revolut</div>
+              </div>
+              <span class="payment-stack-badge pay-badge-fast">Fast</span>
+            </div>
+            <h4>Revolut</h4>
+            <p>Fast global digital wallet &amp; card payments.</p>
+          </div>
+
+          <!-- Bank Transfer -->
+          <div class="payment-stack-card">
+            <div class="payment-stack-top">
+              <div class="payment-stack-logos">
+                <div class="payment-logo-box paylogo-visa">🏦 Wire Transfer</div>
+              </div>
+              <span class="payment-stack-badge pay-badge-days">1–3 Days</span>
+            </div>
+            <h4>Bank Transfers</h4>
+            <p>Local and international wire transfers — secure and reliable.</p>
+          </div>
+
+          <!-- Cryptocurrency -->
+          <div class="payment-stack-card">
+            <div class="payment-stack-top">
+              <div class="payment-stack-logos">
+                <div class="payment-logo-box paylogo-interac" style="background-color: #F7931A; color:#fff;">₿ Crypto</div>
+              </div>
+              <span class="payment-stack-badge pay-badge-fast">Fast</span>
+            </div>
+            <h4>Cryptocurrency</h4>
+            <p>Bitcoin, Ethereum, USDT and more — fully anonymous payments.</p>
+          </div>
+
+          <!-- Wise -->
+          <div class="payment-stack-card">
+            <div class="payment-stack-top">
+              <div class="payment-stack-logos">
+                <div class="payment-logo-box paylogo-revolut" style="background-color:#9FE870; color:#0B1F3A;">W Wise</div>
+              </div>
+              <span class="payment-stack-badge pay-badge-fast">Fast</span>
+            </div>
+            <h4>Wise</h4>
+            <p>Low-cost international transfers — perfect for UK customers.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -248,3 +535,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+  
