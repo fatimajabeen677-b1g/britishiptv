@@ -95,3 +95,64 @@
     });
   }
 })();
+
+// ===== AUTO MESSAGE ON WHATSAPP BUTTONS + PRE-FILL =====
+(function() {
+  // ----- CONFIGURATION (edit these) -----
+  const whatsappNumber = '923020548889';
+
+  // ----- PAGE CONTEXT DETECTION -----
+  const path = window.location.pathname.toLowerCase();
+  let pageContext = 'British IPTV';
+  if (path.includes('devices')) pageContext = 'Supported IPTV Devices';
+  else if (path.includes('setup')) pageContext = 'IPTV Setup Guide';
+  else if (path.includes('faq')) pageContext = 'IPTV UK FAQs';
+  else if (path.includes('contact')) pageContext = 'IPTV UK Support';
+  else if (path.includes('privacy')) pageContext = 'Privacy Policy';
+  else if (path.includes('terms')) pageContext = 'Terms of Use';
+
+  // ----- AUTO MESSAGE POPUP TEXT -----
+  const autoMessage =
+    '👋 Thanks for your interest in British IPTV!\n\n' +
+    'We noticed you clicked on the "' + pageContext + '" page.\n\n' +
+    '💬 Would you like to:\n' +
+    '• Get a 24-hour free IPTV UK trial?\n' +
+    '• Ask a question about our UK IPTV service?\n' +
+    '• See our subscription plans?\n\n' +
+    'Click OK to chat with us on WhatsApp now — we usually respond within minutes.';
+
+  // ----- WHATSAPP PRE-FILLED GREETING -----
+  const autoGreeting =
+    'Hi British IPTV! 👋\n\n' +
+    'I\'m on the "' + pageContext + '" page and I\'d like to know more about your UK IPTV subscription.\n\n' +
+    'Could you help me with:\n' +
+    '• Free 24-hour trial\n' +
+    '• Pricing and plans\n' +
+    '• Device compatibility\n\n' +
+    'Thanks!';
+
+  // ----- HANDLE ALL WHATSAPP LINKS -----
+  const waLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]');
+
+  waLinks.forEach(function(link) {
+    // Skip if this link already has "text=" param (prevent double-adding)
+    if (link.href.indexOf('text=') !== -1) return;
+
+    // Store the original href
+    const originalHref = link.getAttribute('href');
+
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Show the auto message popup
+      const userConfirmed = confirm(autoMessage);
+
+      if (userConfirmed) {
+        // Build the WhatsApp URL with pre-filled message
+        const separator = originalHref.indexOf('?') !== -1 ? '&' : '?';
+        const finalUrl = originalHref + separator + 'text=' + encodeURIComponent(autoGreeting);
+        window.open(finalUrl, '_blank');
+      }
+    });
+  });
+})();
