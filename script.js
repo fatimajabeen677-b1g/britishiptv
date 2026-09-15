@@ -96,12 +96,12 @@
   }
 })();
 
-// ===== AUTO MESSAGE ON WHATSAPP BUTTONS + PRE-FILL =====
+// ===== AUTO WHATSAPP MESSAGE ON ALL BUTTONS =====
 (function() {
-  // ----- CONFIGURATION (edit these) -----
+  // ----- CONFIGURATION -----
   const whatsappNumber = '923020548889';
 
-  // ----- PAGE CONTEXT DETECTION -----
+  // ----- PAGE CONTEXT -----
   const path = window.location.pathname.toLowerCase();
   let pageContext = 'British IPTV';
   if (path.includes('devices')) pageContext = 'Supported IPTV Devices';
@@ -111,17 +111,7 @@
   else if (path.includes('privacy')) pageContext = 'Privacy Policy';
   else if (path.includes('terms')) pageContext = 'Terms of Use';
 
-  // ----- AUTO MESSAGE POPUP TEXT -----
-  const autoMessage =
-    '👋 Thanks for your interest in British IPTV!\n\n' +
-    'We noticed you clicked on the "' + pageContext + '" page.\n\n' +
-    '💬 Would you like to:\n' +
-    '• Get a 24-hour free IPTV UK trial?\n' +
-    '• Ask a question about our UK IPTV service?\n' +
-    '• See our subscription plans?\n\n' +
-    'Click OK to chat with us on WhatsApp now — we usually respond within minutes.';
-
-  // ----- WHATSAPP PRE-FILLED GREETING -----
+  // ----- AUTO-GENERATED MESSAGE -----
   const autoGreeting =
     'Hi British IPTV! 👋\n\n' +
     'I\'m on the "' + pageContext + '" page and I\'d like to know more about your UK IPTV subscription.\n\n' +
@@ -131,28 +121,19 @@
     '• Device compatibility\n\n' +
     'Thanks!';
 
-  // ----- HANDLE ALL WHATSAPP LINKS -----
-  const waLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]');
+  const encodedGreeting = encodeURIComponent(autoGreeting);
 
-  waLinks.forEach(function(link) {
-    // Skip if this link already has "text=" param (prevent double-adding)
+  // ----- HANDLE ALL WHATSAPP LINKS -----
+  document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]').forEach(function(link) {
+    // Skip if this link already has a text= param
     if (link.href.indexOf('text=') !== -1) return;
 
-    // Store the original href
     const originalHref = link.getAttribute('href');
-
     link.addEventListener('click', function(e) {
       e.preventDefault();
-
-      // Show the auto message popup
-      const userConfirmed = confirm(autoMessage);
-
-      if (userConfirmed) {
-        // Build the WhatsApp URL with pre-filled message
-        const separator = originalHref.indexOf('?') !== -1 ? '&' : '?';
-        const finalUrl = originalHref + separator + 'text=' + encodeURIComponent(autoGreeting);
-        window.open(finalUrl, '_blank');
-      }
+      const separator = originalHref.indexOf('?') !== -1 ? '&' : '?';
+      window.open(originalHref + separator + 'text=' + encodedGreeting, '_blank');
     });
   });
 })();
+    
