@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://britishiptv.co.uk/sitemap.xml
+Sitemap: https://britishiptvsubscription.co.uk/sitemap.xml
