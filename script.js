@@ -1,5 +1,5 @@
 /* ============================================================
-   BRITISH IPTV — MASTER JAVASCRIPT
+   BRITISH IPTV — MASTER JAVASCRIPT (v4)
    ============================================================ */
 
 // ===== SLIDE NAVIGATION =====
@@ -98,7 +98,6 @@
 
 // ===== SMART WHATSAPP AUTO-MESSAGE (CUSTOMIZED PER BUTTON) =====
 (function() {
-  // ----- CONFIGURATION -----
   const whatsappNumber = '923020548889';
 
   // ----- PAGE CONTEXT -----
@@ -111,10 +110,8 @@
   else if (path.includes('privacy')) pageContext = 'Privacy Policy';
   else if (path.includes('terms')) pageContext = 'Terms of Use';
 
-  // ----- MESSAGE TEMPLATES BY INTENT -----
+  // ----- MESSAGE TEMPLATES -----
   const MESSAGES = {
-
-    // --- TRIAL ---
     trial:
       "Hi British IPTV! 👋\n\n" +
       "I'd like to claim my *FREE 24-HOUR IPTV TRIAL* for the UK. 🎁\n\n" +
@@ -124,7 +121,6 @@
       "• Channel list preview\n\n" +
       "Thank you!",
 
-    // --- 3 MONTH PLAN ---
     plan3:
       "Hi British IPTV! 👋\n\n" +
       "I'm interested in the *3-MONTH PLAN (£29.99)*. 💳\n\n" +
@@ -134,7 +130,6 @@
       "• How fast can I get my login\n\n" +
       "Thanks!",
 
-    // --- 6 MONTH PLAN ---
     plan6:
       "Hi British IPTV! 👋\n\n" +
       "I'm interested in the *6-MONTH PLAN (£49.99)* — the most popular one. ⭐\n\n" +
@@ -144,7 +139,6 @@
       "• Any discount for this plan\n\n" +
       "Thanks!",
 
-    // --- 12 MONTH PLAN ---
     plan12:
       "Hi British IPTV! 👋\n\n" +
       "I'm interested in the *12-MONTH PLAN (£59.99)* — best value per month. 💰\n\n" +
@@ -154,7 +148,6 @@
       "• Any extra perks for yearly customers\n\n" +
       "Thanks!",
 
-    // --- BUY / SUBSCRIBE (generic) ---
     buy:
       "Hi British IPTV! 👋\n\n" +
       "I'm ready to *BUY an IPTV UK subscription*. 🛒\n\n" +
@@ -164,7 +157,6 @@
       "• How I'll receive my login details\n\n" +
       "Thanks!",
 
-    // --- DEVICE COMPATIBILITY ---
     devices:
       "Hi British IPTV! 👋\n\n" +
       "I'd like to confirm if my *device is compatible* with your UK IPTV service. 📱\n\n" +
@@ -172,7 +164,6 @@
       "Please confirm compatibility and setup steps.\n\n" +
       "Thanks!",
 
-    // --- SETUP HELP ---
     setup:
       "Hi British IPTV! 👋\n\n" +
       "I need help with the *IPTV setup* on my device. ⚙️\n\n" +
@@ -181,7 +172,6 @@
       "Can you guide me step by step?\n\n" +
       "Thanks!",
 
-    // --- SUPPORT ---
     support:
       "Hi British IPTV! 👋\n\n" +
       "I need *IPTV UK support* for a current customer. 🇬🇧\n\n" +
@@ -189,7 +179,6 @@
       "Please help me resolve this.\n\n" +
       "Thanks!",
 
-    // --- GENERAL / PAGE CONTEXT FALLBACK ---
     general: function() {
       return "Hi British IPTV! 👋\n\n" +
         "I'm on the *" + pageContext + "* page and I'd like to know more about your UK IPTV subscription.\n\n" +
@@ -201,56 +190,52 @@
     }
   };
 
-  // ----- DETECT INTENT FROM BUTTON -----
+  // ----- DETECT INTENT -----
   function detectIntent(link) {
     const text = (link.textContent || '').toLowerCase().trim();
     const dataIntent = (link.dataset.intent || '').toLowerCase();
-    const href = (link.getAttribute('href') || '').toLowerCase();
 
-    // 1) Explicit data-intent wins
     if (dataIntent && MESSAGES[dataIntent]) return dataIntent;
 
-    // 2) Keyword matching (order matters!)
     if (text.includes('3 month') || text.includes('3-month') || text.includes('3months')) return 'plan3';
     if (text.includes('6 month') || text.includes('6-month') || text.includes('6months')) return 'plan6';
     if (text.includes('12 month') || text.includes('12-month') || text.includes('12months') || text.includes('year')) return 'plan12';
 
-    if (text.includes('free trial') || text.includes('free iptv') || text.includes('try')) return 'trial';
+    if (text.includes('free trial') || text.includes('free iptv') || text.includes('24hr') || text.includes('24-hour')) return 'trial';
     if (text.includes('buy') || text.includes('subscribe') || text.includes('subscription')) return 'buy';
     if (text.includes('device')) return 'devices';
     if (text.includes('setup') || text.includes('install') || text.includes('guide')) return 'setup';
     if (text.includes('support') || text.includes('help') || text.includes('contact')) return 'support';
 
-    // 3) Fallback → page-based general
     return 'general';
   }
 
-  // ----- HANDLE ALL WHATSAPP LINKS -----
+  // ----- FORCE-OVERRIDE EVERY WHATSAPP LINK -----
   document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]').forEach(function(link) {
-    // Skip if this link already has a text= param
-    if (link.href.indexOf('text=') !== -1) return;
-
     link.addEventListener('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
 
       const intent = detectIntent(link);
       const template = MESSAGES[intent];
       const message = (typeof template === 'function') ? template() : template;
       const encoded = encodeURIComponent(message);
 
-      const baseHref = 'https://wa.me/' + whatsappNumber;
-      const separator = baseHref.indexOf('?') !== -1 ? '&' : '?';
-
-      window.open(baseHref + separator + 'text=' + encoded, '_blank');
+      const url = 'https://wa.me/' + whatsappNumber + '?text=' + encoded;
+      window.open(url, '_blank');
     });
   });
 
-  // ----- OPTIONAL: expose helper for manual use -----
+  // ----- HELPER (exposed for manual use) -----
   window.britishIPTVWhatsApp = function(intent) {
     const template = MESSAGES[intent] || MESSAGES.general;
     const message = (typeof template === 'function') ? template() : template;
     const encoded = encodeURIComponent(message);
     window.open('https://wa.me/' + whatsappNumber + '?text=' + encoded, '_blank');
   };
+
+  // ----- DEBUG LOG -----
+  console.log('[British IPTV v4] WhatsApp auto-message loaded. Links found:',
+    document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]').length);
 })();
 
